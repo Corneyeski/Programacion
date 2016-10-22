@@ -78,7 +78,7 @@ public class pelicula {
 
     @Override
     public String toString() {
-        return "pelicula{" +
+       /* return "pelicula{" +
                 "codigo='" + codigo + '\'' +
                 ", titulo='" + titulo + '\'' +
                 ", director='" + director + '\'' +
@@ -86,6 +86,8 @@ public class pelicula {
                 ", genero='" + genero + '\'' +
                 ", valoracion=" + valoracion +
                 ", visto=" + visto +
-                '}';
+                '}'; */
+       String texto = "codigo='" + codigo + '\'' +", titulo='" + titulo + '\'' + ", director='" + director + '\'' + ", duracion=" + duracion + ", genero='" + genero + '\'' + ", valoracion=" + valoracion;
+        return texto += visto ? "VISTA" : "POR VER";
     }
 }

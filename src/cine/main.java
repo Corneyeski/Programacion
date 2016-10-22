@@ -19,8 +19,7 @@ public class main {
             switch (op) {
 
                 case 1:
-                    boolean sino;
-
+                    String visto = "";
                     pelicula.setTitulo(pedirCadena("Nombre de la pelicula?"));
                     pelicula.setGenero(pedirCadena("Genero?"));
                     pelicula.setCodigo(pedirCadena("Codigo?"));
@@ -28,61 +27,53 @@ public class main {
                     pelicula.setDuracion(pedirEntero("Duracion de la pelicula?", 2));
                     pelicula.setValoracion(pedirDouble("Valoracion de la pelicula?"));
                     do {
-                        sino = false;
-                        String visto = pedirCadena("La has visto? escribe si o no");
-                        visto.toLowerCase();
-
-                        if(visto.equals("si") || visto.equals("no")) {
-                            if (visto.equals("si")) {
-                                pelicula.setVisto(true);
-                            } else {
-                                pelicula.setVisto(false);
-                            }
-                        }else{
-                            sino = true;
+                        visto = pedirCadena("La has visto? escribe si o no");
+                        if (visto.equalsIgnoreCase("si")) {
+                            pelicula.setVisto(true);
+                        } else if (visto.equalsIgnoreCase("no")) {
+                            pelicula.setVisto(true);
                         }
-                    } while(sino);
+                    } while (!visto.equalsIgnoreCase("no") && !visto.equalsIgnoreCase("si"));
                     peliculas.add(pelicula);
                     break;
                 case 2:
                     boolean check = true;
-                    for (pelicula actPeli : peliculas){
-                        if(pelicula.getCodigo().equals(actPeli.getCodigo())){
+                    for (pelicula actPeli : peliculas) {
+                        if (pelicula.getCodigo().equals(actPeli.getCodigo())) {
                             System.out.println(actPeli);
                             check = false;
                             break;
                         }
                     }
-                    if(check == true){
+                    if (check == true) {
                         System.out.println("Sin coincidencias");
                     }
                     break;
                 case 3:
                     boolean check2 = true;
-                    String genero =pedirCadena("que genero buscas?");
-                    for (pelicula actPeli : peliculas){
-                        if(genero.equals(actPeli.getGenero())){
+                    String genero = pedirCadena("que genero buscas?");
+                    for (pelicula actPeli : peliculas) {
+                        if (genero.equals(actPeli.getGenero())) {
                             System.out.println(actPeli.getTitulo());
                             check2 = false;
                         }
                     }
-                    if(check2 == true){
+                    if (check2 == true) {
                         System.out.println("Sin coincidencias.");
                     }
                     break;
                 case 4:
                     String titulo = "";
                     double valor = 0;
-                    for (pelicula actPeli : peliculas){
-                        if(actPeli.getValoracion() > valor){
+                    for (pelicula actPeli : peliculas) {
+                        if (actPeli.getValoracion() > valor) {
                             valor = actPeli.getValoracion();
                             titulo = actPeli.getTitulo();
                         }
                     }
-                    if(titulo == ""){
+                    if (titulo == "") {
                         System.out.println("Sin peliculas registradas");
-                    }
-                    else {
+                    } else {
                         System.out.println("La pelicula favorita es: " + titulo + " " + valor);
                     }
                     break;
@@ -90,11 +81,11 @@ public class main {
                     int largo = peliculas.size();
                     int i = 0;
                     int j = 0;
-                    for (pelicula actPeli : peliculas){
-                        if(actPeli.getVisto() == false){
+                    for (pelicula actPeli : peliculas) {
+                        if (actPeli.getVisto() == false) {
                             i++;
                         }
-                        j = j+actPeli.getDuracion();
+                        j = j + actPeli.getDuracion();
                     }
                     System.out.println("Te faltan " + i + " por ver de " + largo + " duracion total de " + j + " minutos.");
                     break;
