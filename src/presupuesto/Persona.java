@@ -64,4 +64,14 @@ public class Persona {
         this.presupuestos = presupuestos;
     }
 
+    @Override
+    public String toString() {
+        return "Persona{" +
+                "nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", numero=" + numero +
+                ", vip=" + vip +
+                ", presupuestos=" + presupuestos +
+                '}';
+    }
 }
