@@ -6,15 +6,15 @@ package presupuesto;
 public class Presupuesto {
     private Integer num;
     private String concepto;
-    private Double precio_neto;
+    private Double precioNeto;
     private String estado;
 
     public Presupuesto(){}
 
-    public Presupuesto(Integer num, String concepto, Double precio_neto) {
+    public Presupuesto(Integer num, String concepto, Double precioNeto) {
         this.num = num;
         this.concepto = concepto;
-        this.precio_neto = precio_neto;
+        this.precioNeto = precioNeto;
     }
 
     public Integer getNum() {
@@ -33,12 +33,12 @@ public class Presupuesto {
         this.concepto = concepto;
     }
 
-    public Double getPrecio_neto() {
-        return precio_neto;
+    public Double getPrecioNeto() {
+        return precioNeto;
     }
 
-    public void setPrecio_neto(Double precio_neto) {
-        this.precio_neto = precio_neto;
+    public void setPrecioNeto(Double precioNeto) {
+        this.precioNeto = precioNeto;
     }
 
     public String getEstado() {
@@ -68,7 +68,7 @@ public class Presupuesto {
         return "Presupuesto{" +
                 "num=" + num +
                 ", concepto='" + concepto + '\'' +
-                ", precio_neto=" + precio_neto +
+                ", precioNeto=" + precioNeto +
                 ", estado='" + estado + '\'' +
                 '}';
     }

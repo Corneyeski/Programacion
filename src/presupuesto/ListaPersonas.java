@@ -36,4 +36,12 @@ public class ListaPersonas {
 
         return false;
     }
+
+    public ArrayList<Persona> getLista() {
+        return lista;
+    }
+
+    public void setLista(ArrayList<Persona> lista) {
+        this.lista = lista;
+    }
 }

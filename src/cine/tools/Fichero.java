@@ -17,7 +17,11 @@ public class Fichero {
         this.nombre = nombre;
     }
     public void grabar(Object o){
-        try (XMLEncoder codificador = new XMLEncoder(new FileOutputStream(new File(nombre)))) {
+        try  {
+            XMLEncoder coder = new XMLEncoder(new FileOutputStream(new File(nombre)));
+            System.out.println("entro");
+            coder.writeObject(o);
+            coder.close();
         } catch (FileNotFoundException ex){
             System.out.print("Error no se ha podido grabar" + ex.getMessage());
         }
@@ -28,7 +32,7 @@ public class Fichero {
             XMLDecoder decodificador = new XMLDecoder(new FileInputStream(new File(nombre)));
             return decodificador.readObject();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+           // e.printStackTrace();
             return null;
         }
 

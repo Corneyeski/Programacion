@@ -13,17 +13,23 @@ import java.io.FileOutputStream;
 public class Fichero {
     private String nombre;
 
-    public Fichero(String nombre){
+    public Fichero(String nombre) {
         this.nombre = nombre;
     }
-    public void grabar(Object o){
-        try (XMLEncoder codificador = new XMLEncoder(new FileOutputStream(new File(nombre)))) {
-        } catch (FileNotFoundException ex){
+
+    public void grabar(Object o) {
+        try  {
+            XMLEncoder coder = new XMLEncoder(new FileOutputStream(new File(nombre)));
+            System.out.println("entro");
+            coder.writeObject(o);
+            coder.close();
+        } catch (FileNotFoundException ex) {
             System.out.print("Error no se ha podido grabar" + ex.getMessage());
         }
     }
+
     //Devuelve null si no existe el fichero todavia
-    public Object leer(){
+    public Object leer() {
         try {
             XMLDecoder decodificador = new XMLDecoder(new FileInputStream(new File(nombre)));
             return decodificador.readObject();

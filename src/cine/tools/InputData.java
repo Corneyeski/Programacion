@@ -31,7 +31,7 @@ public class InputData {
         return cadena;
     }
 
-    public static int pedirEntero(String mensaje) {
+    public static Integer pedirEntero(String mensaje) {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int numero = 0;
         boolean error;

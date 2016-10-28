@@ -22,7 +22,9 @@ public class Persona {
         presupuestos = new ListaPresupuestos();
     }
 
-    public Persona() {}
+    public Persona() {
+        presupuestos = new ListaPresupuestos();
+    }
 
     public String getNombre() {
         return nombre;

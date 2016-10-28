@@ -1,23 +1,18 @@
 package presupuesto;
 
 import cine.tools.Fichero;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static presupuesto.Tools.tools.InputData.pedirCadena;
 import static presupuesto.Tools.tools.InputData.pedirDouble;
 import static presupuesto.Tools.tools.InputData.pedirEntero;
 
-/**
- * Created by Alan on 13/10/2016.
- */
 public class main {
 
     private static ListaPersonas personas;
     private static Fichero miFichero;
 
-    public void main(String[] args) {
+    public static void main(String[] args) {
 
         miFichero = new Fichero("personas.xml");
         personas = (ListaPersonas) miFichero.leer();
@@ -27,8 +22,10 @@ public class main {
 
         Persona persona = new Persona();
         int opcion = 0;
-        List<Persona> lpersonas = new ArrayList<>();
         do {
+            do{
+                opcion = menu();
+            }while(opcion < 1 || opcion > 8);
             switch (opcion) {
 
                 case 1:
@@ -45,10 +42,8 @@ public class main {
                     }
                     break;
                 case 3:
-                    for (Persona cliente : lpersonas) {
-                        List<Presupuesto> algo = new ArrayList<>();
-                        algo = (List<Presupuesto>) cliente.getPresupuestos();
-                        for (Presupuesto presupuesto : algo) {
+                    for (Persona cliente : personas.getLista()) {
+                        for (Presupuesto presupuesto : cliente.getPresupuestos().getLista()) {
                             if (presupuesto.getEstado().equalsIgnoreCase("pendiente")) {
                                 System.out.println(presupuesto.getNum());
                                 System.out.println(cliente.getNombre());
@@ -59,38 +54,35 @@ public class main {
                     break;
                 case 4:
                     int num = pedirEntero("Numero de telefono?");
-                    for (Persona cliente : lpersonas) {
+                    for (Persona cliente : personas.getLista()) {
                         if (num == cliente.getNumero()) {
-                            List<Presupuesto> algo = new ArrayList<>();
-                            algo = (List<Presupuesto>) cliente.getPresupuestos();
-                            for (Presupuesto presupuesto : algo) {
+                            for (Presupuesto presupuesto :  cliente.getPresupuestos().getLista()) {
                                 System.out.println(presupuesto);
                             }
                         }
                     }
                     break;
                 case 5:
-                    for (Persona cliente : lpersonas) {
-                        List<Presupuesto> algo = new ArrayList<>();
-                        algo = (List<Presupuesto>) cliente.getPresupuestos();
-                        for (Presupuesto presupuesto : algo) {
+                    for (Persona cliente : personas.getLista()) {
+                        for (Presupuesto presupuesto :  cliente.getPresupuestos().getLista()) {
                             if(presupuesto.getEstado().equalsIgnoreCase("rechazado"))
                                 System.out.println(presupuesto);
                         }
                     }
                     break;
                 case 6:
-                    for(Persona cliente : lpersonas){
+                    for(Persona cliente : personas.getLista()){
+                        for(Presupuesto presupuesto : cliente.getPresupuestos().getLista()){
+
+                        }
                     }
                     break;
                 case 7:
                     num = pedirEntero("Numero de telefono?");
-                    for (Persona cliente : lpersonas) {
+                    for (Persona cliente : personas.getLista()) {
                         if (num == cliente.getNumero()) {
-                            List<Presupuesto> algo = new ArrayList<>();
-                            algo = (List<Presupuesto>) cliente.getPresupuestos();
                             int num2 = pedirEntero("Numero de presupuesto?");
-                            for (Presupuesto presupuesto : algo) {
+                            for (Presupuesto presupuesto :  cliente.getPresupuestos().getLista()) {
                                 if(num2 == presupuesto.getNum()){
                                     System.out.println("Estado del presupuesto?" + " actual: " + presupuesto.getEstado());
                                     int j = 0;
@@ -100,50 +92,54 @@ public class main {
                                         System.out.print("3- Pendiente");
                                         j = pedirEntero("");
                                     } while (j < 1 || j > 3);
+                                    presupuesto = acerecha(j,presupuesto);
                                 }
                             }
                         }
                     }
                     break;
+                case 8:
+                    grabar2();
+                    break;
             }
         } while (opcion != 8);
     }
 
-    public Persona registrar() {
+    public static Persona registrar() {
 
         Persona persona = new Persona();
 
         persona.setNombre(pedirCadena("Nombre del cliente?"));
         persona.setApellido(pedirCadena("Apellido del cliente?"));
         boolean repetido = true;
-        int numero;
+        Integer numero;
         String vip;
         do {
             numero = pedirEntero("Numero de telefono?");
             if (personas.encontrar(numero)) {
                 repetido = false;
             }
-        } while (repetido);
+        } while (!repetido);
         persona.setNumero(numero);
         do {
-            vip = pedirCadena("La has visto? escribe si o no");
+            vip = pedirCadena("Eres vip? escribe si o no");
             if (vip.equalsIgnoreCase("si")) {
                 persona.setVip(true);
             } else if (vip.equalsIgnoreCase("no")) {
-                persona.setVip(true);
+                persona.setVip(false);
             }
         } while (!vip.equalsIgnoreCase("no") && !vip.equalsIgnoreCase("si"));
 
         return persona;
     }
 
-    public Presupuesto presupuesto() {
+    public static Presupuesto presupuesto() {
 
         Presupuesto presupuesto = new Presupuesto();
 
         presupuesto.setNum(pedirEntero("numero de presupuesto?"));
         presupuesto.setConcepto(pedirCadena("Concepto?"));
-        presupuesto.setPrecio_neto(pedirDouble("precio total?"));
+        presupuesto.setPrecioNeto(pedirDouble("precio total?"));
         System.out.println("Esta aceptado, rechazado, o pendiente?");
         int j = 0;
         do {
@@ -157,7 +153,7 @@ public class main {
         return presupuesto;
     }
 
-    public Presupuesto acerecha(int j, Presupuesto presupuesto) {
+    public static Presupuesto acerecha(int j, Presupuesto presupuesto) {
         if (j == 1) {
             presupuesto.setEstado("Aceptado");
         }
@@ -168,5 +164,22 @@ public class main {
             presupuesto.setEstado("Pendiente");
         }
         return presupuesto;
+    }
+    public static int menu(){
+
+        System.out.println("1. Alta cliente");
+        System.out.println("2. Nuevo presupuesto");
+        System.out.println("3. Presupuestos pendientes (de aceptar o rechazar)1");
+        System.out.println("4. Listado de presupuestos de un cliente determinado");
+        System.out.println("5. Listado de presupuestos rechazados.");
+        System.out.println("6. Listado de clientes, donde aparezca también el total de presupuestos que tiene cada uno");
+        System.out.println("7. Cambiar estado de un presupuesto.");
+        System.out.println("8. Salir");
+
+
+        return pedirEntero("");
+    }
+    public static void grabar2(){
+        miFichero.grabar(personas);
     }
 }

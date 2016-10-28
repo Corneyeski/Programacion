@@ -13,4 +13,12 @@ public class ListaPresupuestos {
     public void altaPresupuesto(Presupuesto p){
         lista.add(p);
     }
+
+    public ArrayList<Presupuesto> getLista() {
+        return lista;
+    }
+
+    public void setLista(ArrayList<Presupuesto> lista) {
+        this.lista = lista;
+    }
 }
