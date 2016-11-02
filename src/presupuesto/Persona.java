@@ -72,8 +72,7 @@ public class Persona {
                 "nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
                 ", numero=" + numero +
-                ", vip=" + vip +
-                ", presupuestos=" + presupuestos +
+                ", vip=" + vip  +
                 '}';
     }
 }

@@ -71,10 +71,12 @@ public class main {
                     }
                     break;
                 case 6:
+                    int presupuestos = 0;
                     for(Persona cliente : personas.getLista()){
                         for(Presupuesto presupuesto : cliente.getPresupuestos().getLista()){
-
+                            presupuestos++;
                         }
+                        System.out.println(cliente + " " + presupuestos);
                     }
                     break;
                 case 7:
