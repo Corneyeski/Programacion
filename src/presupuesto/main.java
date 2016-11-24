@@ -171,7 +171,7 @@ public class main {
 
         System.out.println("1. Alta cliente");
         System.out.println("2. Nuevo presupuesto");
-        System.out.println("3. Presupuestos pendientes (de aceptar o rechazar)1");
+        System.out.println("3. Presupuestos pendientes (de aceptar o rechazar)");
         System.out.println("4. Listado de presupuestos de un cliente determinado");
         System.out.println("5. Listado de presupuestos rechazados.");
         System.out.println("6. Listado de clientes, donde aparezca también el total de presupuestos que tiene cada uno");

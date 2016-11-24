@@ -51,8 +51,6 @@ public class Presupuesto {
 
     public Integer getPresupuestoDescuento(Integer precio_neto){
 
-
-
         return precio_neto;
     }
     public Integer getPrecioIva(Integer getPresupuestoDescuento){
