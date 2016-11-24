@@ -25,7 +25,10 @@ public class Tropa extends Carta{
     @Override
     public String toString() {
         return "Tropa{" +
-                "ataque=" + ataque +
+                "nombre='" + nombre + '\'' +
+                ", elixir=" + elixir +
+                ", vida=" + vida +
+                ", ataque=" + ataque +
                 '}';
     }
 }

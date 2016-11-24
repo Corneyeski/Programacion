@@ -1,5 +1,6 @@
 package stucomRoyal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -9,9 +10,9 @@ public class Jugador {
     private String nombre;
     private String password;
     private int trofeos;
-    private ArrayList<Carta> cartas;
+    private HashMap<String,Carta> cartas;
 
-    public Jugador(String nombre, String password, int trofeos, ArrayList<Carta> cartas) {
+    public Jugador(String nombre, String password, int trofeos, HashMap<String,Carta> cartas) {
         this.nombre = nombre;
         this.password = password;
         this.trofeos = trofeos;
@@ -44,11 +45,11 @@ public class Jugador {
         this.trofeos = trofeos;
     }
 
-    public ArrayList<Carta> getCartas() {
+    public HashMap<String,Carta> getCartas() {
         return cartas;
     }
 
-    public void setCartas(ArrayList<Carta> cartas) {
+    public void setCartas(HashMap<String,Carta> cartas) {
         this.cartas = cartas;
     }
 

@@ -5,9 +5,9 @@ package stucomRoyal;
  */
 public class Carta {
 
-    private String nombre;
-    private int elixir;
-    private  int vida;
+    protected String nombre;
+    protected int elixir;
+    protected  int vida;
 
     public Carta(String nombre, int elixir, int vida) {
         this.nombre = nombre;

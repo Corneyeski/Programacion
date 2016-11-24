@@ -34,7 +34,10 @@ public class Echizo extends Carta{
     @Override
     public String toString() {
         return "Echizo{" +
-                "alcance=" + alcance +
+                "nombre='" + nombre + '\'' +
+                ", elixir=" + elixir +
+                ", vida=" + vida +
+                ", alcance=" + alcance +
                 ", modo=" + modo +
                 '}';
     }

@@ -25,7 +25,10 @@ public class Estructura extends Carta {
     @Override
     public String toString() {
         return "Estructura{" +
-                "defensa=" + defensa +
+                "nombre='" + nombre + '\'' +
+                ", elixir=" + elixir +
+                ", vida=" + vida +
+                ", defensa=" + defensa +
                 '}';
     }
 }
