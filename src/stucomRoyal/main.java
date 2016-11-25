@@ -120,7 +120,8 @@ public class main {
             jugadores.put(j.getNombre(), j);
 
             System.out.println("Carta añadida, puedes añadir " + (j.getCartas().size() - 1) + " mas");
+        }else {
+            System.out.println("Ya tienes esta carta");
         }
-        System.out.println("Ya tienes esta carta");
     }
 }
