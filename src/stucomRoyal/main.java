@@ -21,14 +21,15 @@ public class main {
 
         //HashSet<Jugador> jugadores = new HashSet<>();
         Jugador jugador = new Jugador();
+        HashMap<String, Carta> cartasj = new HashMap<>();
 
-        Jugador j1 = new Jugador("Alan", "stucom", 0, cartas);
+        Jugador j1 = new Jugador("Alan", "stucom", 0, cartasj);
         jugadores.put(j1.getNombre(), j1);
-        Jugador j2 = new Jugador("Alex", "stucom", 0, cartas);
+        Jugador j2 = new Jugador("Alex", "stucom", 0, cartasj);
         jugadores.put(j2.getNombre(), j2);
-        Jugador j3 = new Jugador("Ricard", "stucom", 0, cartas);
+        Jugador j3 = new Jugador("Ricard", "stucom", 0, cartasj);
         jugadores.put(j3.getNombre(), j3);
-        Jugador j4 = new Jugador("Javi", "stucom", 0, cartas);
+        Jugador j4 = new Jugador("Javi", "stucom", 0, cartasj);
         jugadores.put(j4.getNombre(), j4);
 
         Tropa tropa = new Tropa("barbaro", 4, 200, 50);
