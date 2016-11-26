@@ -14,7 +14,6 @@ import static presupuesto.Tools.tools.InputData.pedirEntero;
  */
 public class main {
 
-
     static HashMap<String, Jugador> jugadores = new HashMap<>();
     static HashMap<String, Carta> cartas = new HashMap<>();
 
@@ -22,7 +21,6 @@ public class main {
 
         //HashSet<Jugador> jugadores = new HashSet<>();
         HashMap<String, Carta> cartasj = new HashMap<>();
-        Array[][] battle = new Array[2][3];
 
         Jugador j1 = new Jugador("Alan", "stucom", 0, null);
         jugadores.put(j1.getNombre(), j1);
@@ -37,7 +35,7 @@ public class main {
         cartas.put(tropa.getNombre(), tropa);
         Tropa tropa2 = new Tropa("esqueleto", 1, 50, 15);
         cartas.put(tropa2.getNombre(), tropa2);
-        Tropa tropa3 = new Tropa("dragon", 8, 500, 120);
+        Tropa tropa3 = new Tropa("dragon", 6, 500, 120);
         cartas.put(tropa2.getNombre(), tropa3);
 
         Estructura est = new Estructura("torre", 3, 500, 100);
@@ -47,9 +45,9 @@ public class main {
         Estructura est3 = new Estructura("palo", 1, 50, 50);
         cartas.put(est3.getNombre(), est3);
 
-        Echizo echi = new Echizo("fuego", 5, 50, 10, true);
+        Echizo echi = new Echizo("fuego", 3, 50, 10, true);
         cartas.put(echi.getNombre(), echi);
-        Echizo echi2 = new Echizo("hielo", 5, 50, 10, false);
+        Echizo echi2 = new Echizo("hielo", 1, 50, 10, false);
         cartas.put(echi2.getNombre(), echi2);
         Echizo echi3 = new Echizo("arcano", 2, 60, 4, true);
         cartas.put(echi3.getNombre(), echi3);
@@ -77,8 +75,19 @@ public class main {
                 case 2:
                     Jugador jugador1 = login();
                     Jugador jugador2 = login();
-                    if(jugador1 != null && jugador2 != null){
-                        choice(jugador1,jugador2);
+                    if (jugador1 != null && jugador2 != null) {
+                        if (jugador1.getCartas().size() < 3 || jugador2.getCartas().size() < 3) {
+                            System.out.println("Ambos jugadores necesitais minimo 3 cartas");
+                        } else {
+
+                            ArrayList<Carta> battle = new ArrayList<>();
+                            ArrayList<Carta> battle2 = new ArrayList<>();
+                            battle = choice(jugador1, battle);
+                            battle2 = choice(jugador2, battle2);
+
+                            int random = (int) (Math.random() *-1+2);
+                            System.out.println(random);
+                        }
                     }
 
                     break;
@@ -92,6 +101,8 @@ public class main {
 
     public static int menu() {
 
+        int random = (int) (Math.random() *-1+2);
+        System.out.println(random);
         System.out.println("1. Conseguir cartas");
         System.out.println("2. Batalla");
         System.out.println("3. Ranking");
@@ -117,9 +128,9 @@ public class main {
 
     public static void jugadorCartas(Jugador j, String n) {
 
-        if(j.getCartas().size() == 6){
+        if (j.getCartas().size() == 6) {
             System.out.println("Ya tienes el numero maximo de cartas");
-        }else {
+        } else {
             Carta c;
             if (!j.getCartas().containsKey(n)) {
 
@@ -136,9 +147,31 @@ public class main {
         System.out.println(j.getCartas());
     }
 
-    public static void choice(Jugador j1,Jugador j2){
+    public static ArrayList<Carta> choice(Jugador j, ArrayList<Carta> battle) {
 
-        System.out.println(j1.getNombre() + " escoge tres cartas");
-        System.out.println(j1.getCartas());
+        System.out.println(j.getNombre() + " escoge tres cartas");
+
+        int vueltas = 0;
+        String pedir = "";
+        int max = 0;
+        do {
+            do {
+                System.out.println(j.getCartas());
+                pedir = pedirCadena(" escribe el nombre de la que quieras");
+                for (Carta c : battle) {
+                    max += c.getElixir() + j.getCartas().get(pedir).getElixir();
+                    if (max >= 10 && vueltas != 3 || max > 10 && vueltas == 3) {
+                        battle.clear();
+                        vueltas = 0;
+                        pedir = "";
+                    }
+                }
+            } while (!j.getCartas().containsKey(pedir));
+
+            battle.add(j.getCartas().get(pedir));
+            vueltas++;
+
+        } while (vueltas != 3);
+        return battle;
     }
 }
