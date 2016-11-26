@@ -53,6 +53,17 @@ public class Jugador {
         this.cartas = cartas;
     }
 
+
+    public int compareTo(Jugador o) {
+        if (trofeos < o.trofeos) {
+            return -1;
+        }
+        if (trofeos > o.trofeos) {
+            return 1;
+        }
+        return 0;
+    }
+
     @Override
     public String toString() {
         return "Jugador{" +

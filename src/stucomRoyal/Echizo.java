@@ -31,6 +31,16 @@ public class Echizo extends Carta{
     public void setModo(boolean modo) {
         this.modo = modo;
     }
+
+    public int efecto(boolean modo, int alcance){
+
+        alcance *= 2 / 3;
+        if(modo){
+            return alcance;
+        }else{
+            return -alcance;
+        }
+    }
     @Override
     public String toString() {
         return "Echizo{" +

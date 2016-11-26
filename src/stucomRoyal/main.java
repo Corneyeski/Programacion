@@ -1,5 +1,6 @@
 package stucomRoyal;
 
+import java.sql.Array;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -17,15 +18,15 @@ public class main {
     public static void main(String[] args) {
 
         //HashSet<Jugador> jugadores = new HashSet<>();
-        HashMap<String, Carta> cartasj = new HashMap<>();
+        //HashMap<String, Carta> cartasj = new HashMap<>();
 
         Jugador j1 = new Jugador("Alan", "stucom", 0, null);
         jugadores.put(j1.getNombre(), j1);
-        Jugador j2 = new Jugador("Alex", "stucom", 0, cartasj);
+        Jugador j2 = new Jugador("Alex", "stucom", 0, null);
         jugadores.put(j2.getNombre(), j2);
-        Jugador j3 = new Jugador("Ricard", "stucom", 0, cartasj);
+        Jugador j3 = new Jugador("Ricard", "stucom", 0, null);
         jugadores.put(j3.getNombre(), j3);
-        Jugador j4 = new Jugador("Javi", "stucom", 0, cartasj);
+        Jugador j4 = new Jugador("Javi", "stucom", 0, null);
         jugadores.put(j4.getNombre(), j4);
 
         Tropa tropa = new Tropa("barbaro", 4, 200, 50);
@@ -83,9 +84,8 @@ public class main {
                             battle2 = choice(jugador2, battle2);
 
                             int random = (int) (Math.random() *2+0);
-                            System.out.println(random);
 
-
+                            battle(random);
                         }
                     }
 
@@ -94,14 +94,16 @@ public class main {
                     List<Jugador> orden = new ArrayList<>();
                     jugadores.forEach((key,value) -> orden.add(value));
 
-                    Collections.sort(orden, new Comparator() {
+//                    Collections.sort(orden, new Comparator() {
+//
+//
+//                        @Override
+//                        public int compare(Jugador p1, Jugador p2) {
+//                            // Aqui esta el truco, ahora comparamos p2 con p1 y no al reves como antes
+//                            return new Integer(p2.getTrofeos()).compareTo(new Integer(p1.getTrofeos()));
+//                        }
 
-
-                        @Override
-                        public int compare(Jugador p1, Jugador p2) {
-                            // Aqui esta el truco, ahora comparamos p2 con p1 y no al reves como antes
-                            return new Integer(p2.getTrofeos()).compareTo(new Integer(p1.getTrofeos()));
-                        }
+                    Collections.sort(orden);
                     break;
             }
         } while (opcion != 4);
@@ -181,5 +183,13 @@ public class main {
 
         } while (vueltas != 3);
         return battle;
+    }
+    public static void battle(int start){
+
+        if(start == 1){
+
+        }else{
+
+        }
     }
 }

@@ -22,6 +22,13 @@ public class Estructura extends Carta {
         this.defensa = defensa;
     }
 
+    public int subir (int defensa){
+
+        defensa += 8;
+
+        return defensa;
+    }
+
     @Override
     public String toString() {
         return "Estructura{" +
