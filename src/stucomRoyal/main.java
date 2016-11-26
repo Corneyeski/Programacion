@@ -1,5 +1,6 @@
 package stucomRoyal;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -20,10 +21,10 @@ public class main {
     public static void main(String[] args) {
 
         //HashSet<Jugador> jugadores = new HashSet<>();
-        Jugador jugador = new Jugador();
         HashMap<String, Carta> cartasj = new HashMap<>();
+        Array[][] battle = new Array[2][3];
 
-        Jugador j1 = new Jugador("Alan", "stucom", 0, cartasj);
+        Jugador j1 = new Jugador("Alan", "stucom", 0, null);
         jugadores.put(j1.getNombre(), j1);
         Jugador j2 = new Jugador("Alex", "stucom", 0, cartasj);
         jugadores.put(j2.getNombre(), j2);
@@ -71,11 +72,15 @@ public class main {
                         } else {
                             System.out.println("La carta no existe!");
                         }
-                    } else {
-                        System.out.println("Usuario o contraseña no validos");
                     }
                     break;
                 case 2:
+                    Jugador jugador1 = login();
+                    Jugador jugador2 = login();
+                    if(jugador1 != null && jugador2 != null){
+                        choice(jugador1,jugador2);
+                    }
+
                     break;
                 case 3:
                     break;
@@ -104,6 +109,7 @@ public class main {
         if (j != null) {
             if (!j.getPassword().equals(psw)) {
                 j = null;
+                System.out.println("Uusuario o contraseña no validos");
             }
         }
         return j;
@@ -111,17 +117,28 @@ public class main {
 
     public static void jugadorCartas(Jugador j, String n) {
 
-        Carta c;
-        if (!j.getCartas().containsKey(n)) {
-
-            c = cartas.get(n);
-            j.getCartas().put(c.getNombre(), c);
-
-            jugadores.put(j.getNombre(), j);
-
-            System.out.println("Carta añadida, puedes añadir " + (j.getCartas().size() - 1) + " mas");
+        if(j.getCartas().size() == 6){
+            System.out.println("Ya tienes el numero maximo de cartas");
         }else {
-            System.out.println("Ya tienes esta carta");
+            Carta c;
+            if (!j.getCartas().containsKey(n)) {
+
+                c = cartas.get(n);
+                j.getCartas().put(c.getNombre(), c);
+
+                jugadores.put(j.getNombre(), j);
+
+                System.out.println("Carta añadida, puedes añadir " + (j.getCartas().size() - 1) + " mas");
+            } else {
+                System.out.println("Ya tienes esta carta");
+            }
         }
+        System.out.println(j.getCartas());
+    }
+
+    public static void choice(Jugador j1,Jugador j2){
+
+        System.out.println(j1.getNombre() + " escoge tres cartas");
+        System.out.println(j1.getCartas());
     }
 }
