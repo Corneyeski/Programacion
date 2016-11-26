@@ -1,10 +1,7 @@
 package stucomRoyal;
 
-import java.sql.Array;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static presupuesto.Tools.tools.InputData.pedirCadena;
 import static presupuesto.Tools.tools.InputData.pedirEntero;
@@ -85,13 +82,26 @@ public class main {
                             battle = choice(jugador1, battle);
                             battle2 = choice(jugador2, battle2);
 
-                            int random = (int) (Math.random() *-1+2);
+                            int random = (int) (Math.random() *2+0);
                             System.out.println(random);
+
+
                         }
                     }
 
                     break;
                 case 3:
+                    List<Jugador> orden = new ArrayList<>();
+                    jugadores.forEach((key,value) -> orden.add(value));
+
+                    Collections.sort(orden, new Comparator() {
+
+
+                        @Override
+                        public int compare(Jugador p1, Jugador p2) {
+                            // Aqui esta el truco, ahora comparamos p2 con p1 y no al reves como antes
+                            return new Integer(p2.getTrofeos()).compareTo(new Integer(p1.getTrofeos()));
+                        }
                     break;
             }
         } while (opcion != 4);
@@ -101,8 +111,6 @@ public class main {
 
     public static int menu() {
 
-        int random = (int) (Math.random() *-1+2);
-        System.out.println(random);
         System.out.println("1. Conseguir cartas");
         System.out.println("2. Batalla");
         System.out.println("3. Ranking");
