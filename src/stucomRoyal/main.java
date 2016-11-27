@@ -20,6 +20,7 @@ public class main {
         //HashSet<Jugador> jugadores = new HashSet<>();
         //HashMap<String, Carta> cartasj = new HashMap<>();
 
+
         Jugador j1 = new Jugador("Alan", "stucom", 0, null);
         jugadores.put(j1.getNombre(), j1);
         Jugador j2 = new Jugador("Alex", "stucom", 0, null);
@@ -73,19 +74,22 @@ public class main {
                 case 2:
                     Jugador jugador1 = login();
                     Jugador jugador2 = login();
+
                     if (jugador1 != null && jugador2 != null) {
                         if (jugador1.getCartas().size() < 3 || jugador2.getCartas().size() < 3) {
                             System.out.println("Ambos jugadores necesitais minimo 3 cartas");
                         } else {
+//                            ArrayList<Carta> battle = new ArrayList<>();
+//                            ArrayList<Carta> battle2 = new ArrayList<>();
 
-                            ArrayList<Carta> battle = new ArrayList<>();
-                            ArrayList<Carta> battle2 = new ArrayList<>();
-                            battle = choice(jugador1, battle);
-                            battle2 = choice(jugador2, battle2);
+                            Carta[][] pelea = new Carta[2][3];
+
+                            pelea = choice(jugador1,pelea,0);
+                            pelea = choice(jugador2,pelea,1);
 
                             int random = (int) (Math.random() *2+0);
 
-                            battle(random);
+                            batalla(random);
                         }
                     }
 
@@ -103,7 +107,7 @@ public class main {
 //                            return new Integer(p2.getTrofeos()).compareTo(new Integer(p1.getTrofeos()));
 //                        }
 
-                    Collections.sort(orden);
+                    //Collections.sort(orden);
                     break;
             }
         } while (opcion != 4);
@@ -157,7 +161,7 @@ public class main {
         System.out.println(j.getCartas());
     }
 
-    public static ArrayList<Carta> choice(Jugador j, ArrayList<Carta> battle) {
+    public static Carta[][] choice(Jugador j,Carta[][] pelea, int who) {
 
         System.out.println(j.getNombre() + " escoge tres cartas");
 
@@ -168,28 +172,32 @@ public class main {
             do {
                 System.out.println(j.getCartas());
                 pedir = pedirCadena(" escribe el nombre de la que quieras");
-                for (Carta c : battle) {
+                for (Carta c : pelea[who]) {
                     max += c.getElixir() + j.getCartas().get(pedir).getElixir();
                     if (max >= 10 && vueltas != 3 || max > 10 && vueltas == 3) {
-                        battle.clear();
+
+                        //battle.clear();
+
+                        pelea[who][0] = null;
+                        pelea[who][1] = null;
+                        pelea[who][2] = null;
                         vueltas = 0;
                         pedir = "";
+                        System.out.println("Te has pasado de elixir, empieza de nuevo (maximo 10)");
                     }
                 }
             } while (!j.getCartas().containsKey(pedir));
 
-            battle.add(j.getCartas().get(pedir));
+            //battle.add(j.getCartas().get(pedir));
+
+            pelea[who][vueltas] = j.getCartas().get(pedir);
             vueltas++;
 
         } while (vueltas != 3);
-        return battle;
+        return pelea;
     }
-    public static void battle(int start){
+    public static void batalla(int start){
 
-        if(start == 1){
 
-        }else{
-
-        }
     }
 }
