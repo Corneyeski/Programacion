@@ -12,14 +12,14 @@ import static presupuesto.Tools.tools.InputData.pedirEntero;
  */
 public class main {
 
-    static HashMap<String, Jugador> jugadores = new HashMap<>();
-    static HashMap<String, Carta> cartas = new HashMap<>();
+    static protected HashMap<String, Jugador> jugadores = new HashMap<>();
+    static protected HashMap<String, Carta> cartas = new HashMap<>();
+    static protected Carta[][] pelea = new Carta[2][3];
 
     public static void main(String[] args) {
 
         //HashSet<Jugador> jugadores = new HashSet<>();
         //HashMap<String, Carta> cartasj = new HashMap<>();
-
 
         Jugador j1 = new Jugador("Alan", "stucom", 0, null);
         jugadores.put(j1.getNombre(), j1);
@@ -82,14 +82,14 @@ public class main {
 //                            ArrayList<Carta> battle = new ArrayList<>();
 //                            ArrayList<Carta> battle2 = new ArrayList<>();
 
-                            Carta[][] pelea = new Carta[2][3];
-
-                            pelea = choice(jugador1,pelea,0);
-                            pelea = choice(jugador2,pelea,1);
+                            pelea = choice(jugador1,0);
+                            pelea = choice(jugador2,1);
 
                             int random = (int) (Math.random() *2+0);
 
                             batalla(random);
+                            batalla(firstatack(random));
+                            ganador(jugador1.getNombre(),jugador2.getNombre());
                         }
                     }
 
@@ -121,7 +121,6 @@ public class main {
         System.out.println("2. Batalla");
         System.out.println("3. Ranking");
         System.out.println("4. Salir");
-
 
         return pedirEntero("");
     }
@@ -161,7 +160,7 @@ public class main {
         System.out.println(j.getCartas());
     }
 
-    public static Carta[][] choice(Jugador j,Carta[][] pelea, int who) {
+    public static Carta[][] choice(Jugador j, int who) {
 
         System.out.println(j.getNombre() + " escoge tres cartas");
 
@@ -196,8 +195,71 @@ public class main {
         } while (vueltas != 3);
         return pelea;
     }
+
     public static void batalla(int start){
 
+        for(Carta c : pelea[start]){
+            if(c instanceof Tropa){
+//                pelea[firstatack(start)][0].setVida(pelea[firstatack(start)][0].getVida()  - ((Tropa) c).getAtaque());
+//                pelea[firstatack(start)][1].setVida(pelea[firstatack(start)][1].getVida()  - ((Tropa) c).getAtaque());
+//                pelea[firstatack(start)][2].setVida(pelea[firstatack(start)][2].getVida()  - ((Tropa) c).getAtaque());
 
+//                for(int i = 0; i < pelea[start].length;i++){
+//                    pelea[firstatack(start)][i].setVida(pelea[firstatack(start)][i].getVida()  - ((Tropa) c).getAtaque());
+//                }
+
+                for(Carta cd : pelea[firstatack(start)]){
+                    cd.setVida(cd.getVida()  - ((Tropa) c).ataque(((Tropa) c).getAtaque()));
+                }
+            }
+            if(c instanceof Estructura){
+                for(Carta cd : pelea[start]){
+                    cd.setVida(((Estructura) c).subir(((Estructura) c).getDefensa(),cd.getVida()));
+                }
+            }
+            if(c instanceof Echizo){
+                if(((Echizo) c).isModo()){
+                    for(Carta cd : pelea[start]){
+                        cd.setVida(cd.getVida()+((Echizo) c).efecto(((Echizo) c).isModo(),((Echizo) c).getAlcance()));
+                    }
+                }else{
+                    for(Carta cd : pelea[firstatack(start)]){
+                        cd.setVida(cd.getVida()+((Echizo) c).efecto(((Echizo) c).isModo(),((Echizo) c).getAlcance()));
+                    }
+                }
+            }
+        }
+    }
+    public static int firstatack(int random){
+
+        if(random == 1){
+            random--;
+        }else{
+            random++;
+        }
+        return random;
+    }
+    public static void ganador(String n1,String n2){
+
+        int j1 = 0;
+        int j2 = 0;
+
+        for(Carta c : pelea[0]){
+            j1 += c.getVida();
+        }
+        for(Carta c : pelea[1]){
+            j2 += c.getVida();
+        }
+        if(j1 > j2){
+            System.out.println("Gana el jugador1!");
+            Jugador jugador = jugadores.get(n1);
+            jugador.setTrofeos(jugador.getTrofeos() + 5);
+            jugadores.put(jugador.getNombre(),jugador);
+        }else{
+            System.out.println("Gana el jugador2!");
+            Jugador jugador = jugadores.get(n2);
+            jugador.setTrofeos(jugador.getTrofeos() + 5);
+            jugadores.put(jugador.getNombre(),jugador);
+        }
     }
 }

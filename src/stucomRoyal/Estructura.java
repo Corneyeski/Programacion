@@ -22,9 +22,9 @@ public class Estructura extends Carta {
         this.defensa = defensa;
     }
 
-    public int subir (int defensa){
+    public int subir (int defensa,int vida){
 
-        defensa += 8;
+        defensa += 8 + vida;
 
         return defensa;
     }
