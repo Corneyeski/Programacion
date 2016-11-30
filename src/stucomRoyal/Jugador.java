@@ -12,11 +12,11 @@ public class Jugador {
     private int trofeos;
     private HashMap<String,Carta> cartas;
 
-    public Jugador(String nombre, String password, int trofeos, HashMap<String,Carta> cartas) {
+    public Jugador(String nombre, String password, int trofeos) {
         this.nombre = nombre;
         this.password = password;
         this.trofeos = trofeos;
-        this.cartas = cartas;
+        cartas = new HashMap<>();
     }
 
     public Jugador() {}

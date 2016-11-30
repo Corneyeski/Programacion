@@ -41,6 +41,14 @@ public class Echizo extends Carta{
             return -alcance;
         }
     }
+    public String tipo(boolean tipo){
+        String tipo2;
+        if(tipo){
+            return "defensa";
+        }else {
+            return "ataque";
+        }
+    }
     @Override
     public String toString() {
         return "Echizo{" +
@@ -48,7 +56,7 @@ public class Echizo extends Carta{
                 ", elixir=" + elixir +
                 ", vida=" + vida +
                 ", alcance=" + alcance +
-                ", modo=" + modo +
+                ", modo=" + tipo(modo) +
                 '}';
     }
 }

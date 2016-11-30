@@ -21,13 +21,13 @@ public class main {
         //HashSet<Jugador> jugadores = new HashSet<>();
         //HashMap<String, Carta> cartasj = new HashMap<>();
 
-        Jugador j1 = new Jugador("Alan", "stucom", 0, null);
+        Jugador j1 = new Jugador("Alan", "stucom", 0);
         jugadores.put(j1.getNombre(), j1);
-        Jugador j2 = new Jugador("Alex", "stucom", 0, null);
+        Jugador j2 = new Jugador("Alex", "stucom", 0);
         jugadores.put(j2.getNombre(), j2);
-        Jugador j3 = new Jugador("Ricard", "stucom", 0, null);
+        Jugador j3 = new Jugador("Ricard", "stucom", 0);
         jugadores.put(j3.getNombre(), j3);
-        Jugador j4 = new Jugador("Javi", "stucom", 0, null);
+        Jugador j4 = new Jugador("Javi", "stucom", 0);
         jugadores.put(j4.getNombre(), j4);
 
         Tropa tropa = new Tropa("barbaro", 4, 200, 50);
@@ -35,7 +35,7 @@ public class main {
         Tropa tropa2 = new Tropa("esqueleto", 1, 50, 15);
         cartas.put(tropa2.getNombre(), tropa2);
         Tropa tropa3 = new Tropa("dragon", 6, 500, 120);
-        cartas.put(tropa2.getNombre(), tropa3);
+        cartas.put(tropa3.getNombre(), tropa3);
 
         Estructura est = new Estructura("torre", 3, 500, 100);
         cartas.put(est.getNombre(), est);
@@ -73,6 +73,7 @@ public class main {
                     break;
                 case 2:
                     Jugador jugador1 = login();
+                    System.out.println("Segundo jugador");
                     Jugador jugador2 = login();
 
                     if (jugador1 != null && jugador2 != null) {
@@ -95,19 +96,17 @@ public class main {
 
                     break;
                 case 3:
-                    List<Jugador> orden = new ArrayList<>();
+                    //List<Jugador> orden = new ArrayList<>();
+                    List<Jugador> orden = (List<Jugador>) jugadores.values();
                     jugadores.forEach((key,value) -> orden.add(value));
 
-//                    Collections.sort(orden, new Comparator() {
-//
-//
-//                        @Override
-//                        public int compare(Jugador p1, Jugador p2) {
-//                            // Aqui esta el truco, ahora comparamos p2 con p1 y no al reves como antes
-//                            return new Integer(p2.getTrofeos()).compareTo(new Integer(p1.getTrofeos()));
-//                        }
 
-                    //Collections.sort(orden);
+                    Collections.sort(orden, new Comparator<Jugador>() {
+                        @Override
+                        public int compare(Jugador o1, Jugador o2) {
+                            return new Integer(o2.getTrofeos()).compareTo(new Integer(o1.getTrofeos()));
+                        }
+                    });
                     break;
             }
         } while (opcion != 4);
@@ -135,6 +134,8 @@ public class main {
                 j = null;
                 System.out.println("Uusuario o contraseña no validos");
             }
+        }else{
+            System.out.println("Uusuario o contraseña no validos");
         }
         return j;
     }
@@ -152,7 +153,7 @@ public class main {
 
                 jugadores.put(j.getNombre(), j);
 
-                System.out.println("Carta añadida, puedes añadir " + (j.getCartas().size() - 1) + " mas");
+                System.out.println("Carta añadida, puedes añadir " + (6 - j.getCartas().size()) + " mas");
             } else {
                 System.out.println("Ya tienes esta carta");
             }
@@ -171,7 +172,8 @@ public class main {
             do {
                 System.out.println(j.getCartas());
                 pedir = pedirCadena(" escribe el nombre de la que quieras");
-                for (Carta c : pelea[who]) {
+
+                    Carta c = cartas.get(pedir);
                     max += c.getElixir() + j.getCartas().get(pedir).getElixir();
                     if (max >= 10 && vueltas != 3 || max > 10 && vueltas == 3) {
 
@@ -182,9 +184,9 @@ public class main {
                         pelea[who][2] = null;
                         vueltas = 0;
                         pedir = "";
+                        max = 0;
                         System.out.println("Te has pasado de elixir, empieza de nuevo (maximo 10)");
                     }
-                }
             } while (!j.getCartas().containsKey(pedir));
 
             //battle.add(j.getCartas().get(pedir));
