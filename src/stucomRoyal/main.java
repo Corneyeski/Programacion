@@ -96,8 +96,8 @@ public class main {
 
                     break;
                 case 3:
-                    //List<Jugador> orden = new ArrayList<>();
-                    List<Jugador> orden = (List<Jugador>) jugadores.values();
+                    List<Jugador> orden = new ArrayList<>();
+                    //List<Jugador> orden = (List<Jugador>) jugadores.values();
                     jugadores.forEach((key,value) -> orden.add(value));
 
 
@@ -107,6 +107,7 @@ public class main {
                             return new Integer(o2.getTrofeos()).compareTo(new Integer(o1.getTrofeos()));
                         }
                     });
+                    System.out.println(orden);
                     break;
             }
         } while (opcion != 4);
@@ -142,23 +143,27 @@ public class main {
 
     public static void jugadorCartas(Jugador j, String n) {
 
-        if (j.getCartas().size() == 6) {
-            System.out.println("Ya tienes el numero maximo de cartas");
-        } else {
-            Carta c;
-            if (!j.getCartas().containsKey(n)) {
-
-                c = cartas.get(n);
-                j.getCartas().put(c.getNombre(), c);
-
-                jugadores.put(j.getNombre(), j);
-
-                System.out.println("Carta añadida, puedes añadir " + (6 - j.getCartas().size()) + " mas");
+        String seguir = "";
+        while (!seguir.equalsIgnoreCase("salir") && j.getCartas().size() < 7) {
+            if (j.getCartas().size() == 6) {
+                System.out.println("Ya tienes el numero maximo de cartas");
             } else {
-                System.out.println("Ya tienes esta carta");
+                Carta c;
+                if (!j.getCartas().containsKey(n)) {
+
+                    c = cartas.get(n);
+                    j.getCartas().put(c.getNombre(), c);
+
+                    jugadores.put(j.getNombre(), j);
+
+                    System.out.println("Carta añadida, puedes añadir " + (6 - j.getCartas().size()) + " mas");
+                } else {
+                    System.out.println("Ya tienes esta carta");
+                }
             }
+            System.out.println(j.getCartas());
+            seguir = pedirCadena("Pulsa enter o escribe salir para salir");
         }
-        System.out.println(j.getCartas());
     }
 
     public static Carta[][] choice(Jugador j, int who) {
@@ -172,10 +177,10 @@ public class main {
             do {
                 System.out.println(j.getCartas());
                 pedir = pedirCadena(" escribe el nombre de la que quieras");
-
+                    pedir = repetido(pedir,who,j);
                     Carta c = cartas.get(pedir);
-                    max += c.getElixir() + j.getCartas().get(pedir).getElixir();
-                    if (max >= 10 && vueltas != 3 || max > 10 && vueltas == 3) {
+                    max += c.getElixir();
+                    if ((max >= 10 && vueltas != 3) || (max > 10 && vueltas == 3)) {
 
                         //battle.clear();
 
@@ -263,5 +268,17 @@ public class main {
             jugador.setTrofeos(jugador.getTrofeos() + 5);
             jugadores.put(jugador.getNombre(),jugador);
         }
+    }
+    public static String repetido( String sele,int who,Jugador j){
+
+        for(Carta c : pelea[who]){
+            if(c != null) {
+                while (c.getNombre().equals(sele)) {
+                    System.out.println(j.getCartas());
+                    sele = pedirCadena("Carta repetida, escoge otra");
+                }
+            }
+        }
+        return sele;
     }
 }
